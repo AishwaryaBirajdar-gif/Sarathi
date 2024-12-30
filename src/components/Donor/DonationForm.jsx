@@ -8,17 +8,12 @@ const DonationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = 'http://localhost:8181/api/payment/createOrder';
-    const payload = {
-      amount: parseInt(amount, 10), // Convert to number
-      currency: 'INR',
-    };
+    const payload = { amount: parseInt(amount, 10), currency: 'INR' };
 
     try {
       const res = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
@@ -26,10 +21,7 @@ const DonationForm = () => {
         throw new Error(`Error: ${res.status}`);
       }
 
-      const data = await res.json();
-
-      // Set the gratitude message based on response
-      setResponseMessage(`Thank you for your generous donation of ₹${amount}! Your contribution will make a positive impact.`);
+      setResponseMessage(`Thank you for your generous donation of ₹${amount}!`);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -38,102 +30,27 @@ const DonationForm = () => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#f9f9f9',
-        fontFamily: 'Arial, sans-serif',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '500px',
-          backgroundColor: 'white',
-          padding: '20px',
-          borderRadius: '10px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          textAlign: 'center',
-        }}
-      >
-        {!responseMessage && !error && (
-          <>
-            <h1 className='text-2xl font-semibold mb-4'>Donation Form</h1>
-            <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: '15px' }}>
-                <label
-                  style={{
-                    display: 'block',
-                    marginBottom: '5px',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  Enter Amount (₹):
-                </label>
-                <input
-                  type='number'
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  required
-                  style={{
-                    padding: '10px',
-                    width: '100%',
-                    border: '1px solid #ccc',
-                    borderRadius: '5px',
-                  }}
-                />
-              </div>
-              <button
-                type='submit'
-                style={{
-                  padding: '10px 20px',
-                  backgroundColor: '#007bff',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                }}
-              >
-                Donate
-              </button>
-            </form>
-          </>
-        )}
-
-        {responseMessage && (
-          <div
-            style={{
-              marginTop: '20px',
-              padding: '20px',
-              borderRadius: '5px',
-              backgroundColor: '#e9ffe9',
-              border: '1px solid green',
-            }}
+    <div className="flex justify-center items-center bg-gradient-to-br from-yellow-50 to-yellow-100 min-h-screen">
+      <div className="bg-white p-10 rounded-lg shadow-xl w-full max-w-md">
+        <h1 className="text-2xl font-semibold text-center mb-4">Donation Form</h1>
+        <form onSubmit={handleSubmit}>
+          <label className="block text-lg font-semibold mb-2">Enter Amount (₹):</label>
+          <input
+            type="number"
+            className="w-full p-3 border border-gray-300 rounded-md mb-4"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition"
           >
-            <h2 style={{ color: 'green', fontSize: '18px' }}>Thank You!</h2>
-            <p style={{ fontSize: '16px' }}>{responseMessage}</p>
-          </div>
-        )}
-
-        {error && (
-          <div
-            style={{
-              marginTop: '20px',
-              padding: '20px',
-              borderRadius: '5px',
-              backgroundColor: '#ffe9e9',
-              border: '1px solid red',
-            }}
-          >
-            <h2 style={{ color: 'red', fontSize: '18px' }}>Error</h2>
-            <p style={{ fontSize: '16px' }}>{error}</p>
-          </div>
-        )}
+            Donate
+          </button>
+        </form>
+        {responseMessage && <p className="mt-4 text-green-600">{responseMessage}</p>}
+        {error && <p className="mt-4 text-red-600">{error}</p>}
       </div>
     </div>
   );

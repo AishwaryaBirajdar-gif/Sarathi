@@ -5,22 +5,15 @@ const DonateMoney = () => {
   const navigate = useNavigate();
 
   const handleNavigateToForm = () => {
-    navigate('/donation-form'); // Navigate to the form page
+    navigate('/donation-form');
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1 className='text-2xl font-semibold mb-4'>Donate Money</h1>
+    <div>
+      <h2 className='text-3xl font-semibold mb-6 text-blue-600'>Donate Money</h2>
       <button
         onClick={handleNavigateToForm}
-        style={{
-          padding: '10px 20px',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
+        className="w-full px-6 py-3 bg-gradient-to-r from-green-400 to-blue-600 text-white rounded-lg hover:opacity-90 transition-transform transform hover:scale-105"
       >
         Proceed to Donate
       </button>
